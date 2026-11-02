@@ -34,6 +34,8 @@ skills/test-lah/
   references/ux-review.md   optional UX suggestion checklist
   references/state-model.md optional state/transition coverage method
   references/harness-lessons.md  Playwright and ExcelJS pitfalls
+  templates/build.js        JSON to Excel builder (needs `npm i exceljs@4.4.0`)
+  templates/sample-data.json  example input
 ```
 
-Not included yet: a workbook builder script. The skill tells the agent to write one with ExcelJS following `workbook-spec.md`.
+Not included: Summary stacked-bar chart image. Layout was checked by reading the generated file back, not by opening it in Excel.

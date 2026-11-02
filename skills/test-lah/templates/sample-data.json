@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "Test Case Summary | Sample App",
+    "color": "#1565C0",
+    "env": "https://staging.example.com",
+    "basis": "Code reading and checks against staging",
+    "accounts": "Test account held by QA, not stored here"
+  },
+  "modules": [
+    {
+      "prefix": "LGN",
+      "name": "Login",
+      "cases": [
+        { "feature": "Sign in", "scenario": "Valid credentials", "type": "Functional", "priority": "High", "precondition": "Registered user", "steps": "1. Open /login\n2. Enter valid email and password\n3. Click Sign in", "testData": "qa-user@example.com", "expected": "User lands on **/dashboard** and sees a welcome toast." },
+        { "feature": "Sign in", "scenario": "Wrong password", "type": "Negative", "priority": "High", "precondition": "Registered user", "steps": "1. Enter valid email, wrong password\n2. Click Sign in", "testData": "qa-user@example.com / wrong", "expected": "Inline error **Invalid credentials**; no redirect." },
+        { "feature": "Session", "scenario": "Session after logout", "type": "Security", "priority": "Medium", "precondition": "Signed in", "steps": "1. Log out\n2. Press Back", "testData": "", "expected": "Login page is shown; protected page does not render." },
+        { "feature": "Forgot password", "scenario": "Reset email arrives", "type": "Functional", "priority": "Low", "precondition": "Registered user", "steps": "1. Request reset", "testData": "", "expected": "Email arrives within 1 minute." }
+      ],
+      "results": {
+        "LGN-001": { "status": "Pass", "actual": "Redirected to /dashboard with toast." },
+        "LGN-002": { "status": "Fail", "actual": "Page reloads with no message. User cannot tell why sign-in failed. The request returned 401.", "urgent": false, "snippet": "POST /auth/login -> 401 {\"message\":\"Invalid\"}" },
+        "LGN-003": { "status": "Not Tested", "actual": "Observed: dashboard stays visible after Back; expected result waits for a decision." },
+        "LGN-004": { "status": "Blocked", "actual": "Needs a real inbox.", "need": "Provide a mailbox the QA can read." }
+      },
+      "issues": [
+        { "type": "Bug", "severity": "High", "area": "Auth", "issue": ["Wrong password shows no message. The user cannot tell what failed."], "fix": ["Show an inline error under the form. Keep the entered email."], "steps": "Open /login, enter a wrong password, click Sign in.", "ref": "LGN-002" }
+      ]
+    }
+  ],
+  "patterns": [ { "pattern": "Errors are not shown inline", "modules": "Login, Profile", "component": "FormError" } ]
+}

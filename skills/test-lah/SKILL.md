@@ -53,7 +53,7 @@ Read `references/safety.md` before touching any environment, and `references/har
 
 ## Step 5: Build the workbook
 
-Follow `references/workbook-spec.md` (columns, statuses, formatting, evidence, issues table, summary). Write the builder with ExcelJS. If the file is open in Excel (EBUSY), write to `*.next.xlsx` and ask the user to close Excel.
+Follow `references/workbook-spec.md` (columns, statuses, formatting, evidence, issues table, summary). Write the results as one JSON file in the data contract from that spec, then run the bundled builder (copy `templates/build.js` next to it, `npm i exceljs@4.4.0`): `node build.js data.json out.xlsx`. Extend the builder only if the spec cannot express what you need. If the file is open in Excel it writes `*.next.xlsx`; ask the user to close Excel and replace the old file.
 
 ## Step 6: Report
 

@@ -42,6 +42,16 @@ Below the cases on each module sheet, in a softer palette. Columns: Type (Bug or
 - Warn at build time for any Fail with no issue row.
 - Urgent items: red bold first sentence of Actual Result and red headline in the issue row. Keep the ID list in one data file.
 
+## Data contract for `templates/build.js`
+
+See `templates/sample-data.json`. Summary:
+- `meta`: `title`, `color` (brand hex; the builder derives the other shades, header text is white so pick a mid-dark color), `font`, `env`, `basis`, `accounts`, `date`, `needsTitle`.
+- `modules[]`: `prefix`, `name`, `cases[]` (`feature, scenario, type, priority, precondition, steps, testData, expected`; `**x**` in expected is bold), `results` keyed by ID `PREFIX-001` by array order (`status, actual, notes, urgent, shot` as a PNG path relative to the data file, `snippet`, `need` for Blocked cases), `issues[]` (`type, severity, area, issue, fix` as string or array of points, `steps, ref, urgent`). Merging issues = putting several points in one issue's arrays.
+- `patterns[]`: `pattern, modules, component`.
+- Language and wording come from the data you write, not from the builder.
+- The builder warns for a Fail with no issue row, turns a Not Tested result whose actual starts with "Observed" into TBC, and falls back to `*.next.xlsx` when the file is open in Excel.
+- Not built in: stacked-bar chart image, per-theme sheet colors. Add them only if the user asks.
+
 ## Export/Download suggestion pattern (when relevant)
 
 Download opens an "Export data" dialog: date range (prefilled from active filter), format Excel or CSV, editable prefilled file name, row count, Cancel and Download, then a message naming the file. Not a single "Download Excel" button.
