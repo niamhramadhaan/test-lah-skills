@@ -1,0 +1,11 @@
+{
+  "name": "test-lah-skills",
+  "owner": { "name": "niamhramadhaan" },
+  "plugins": [
+    {
+      "name": "test-lah",
+      "source": "./",
+      "description": "QA test-case agent that builds an Excel test workbook from a live app."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "name": "test-lah",
+  "version": "0.1.0",
+  "description": "QA test-case agent: learns the project from code, asks scoping questions, runs tests, and builds an Excel workbook with evidence, UX suggestions and an issues table."
+}
