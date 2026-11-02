@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" width="1600" height="400" role="img" aria-label="Test Lah! A Claude Code skill that reads your app, tests it, and hands you the Excel.">
+  <style>
+    text { font-family: Inter, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .t { font-weight: 600; fill: #1A1A1A; }
+    .m { font-weight: 500; }
+  </style>
+  <rect x="2" y="2" width="1596" height="396" rx="16" fill="#F7F5F1" stroke="#000" stroke-opacity="0.08" stroke-width="2"/>
+
+  <text x="100" y="185" font-size="88" class="t">Test Lah!</text>
+  <text x="102" y="240" font-size="30" fill="#7A7872">Your Boss's Favorite QA Tool</text>
+  <text x="102" y="288" font-size="22" fill="#A8A49E">A Claude Code skill. Reads your app, tests it, hands you the Excel.</text>
+
+  <g class="m" font-size="18" text-anchor="middle">
+    <rect x="100" y="320" width="90" height="36" rx="18" fill="#E8F0E0"/><text x="145" y="344" fill="#3B6011">Pass</text>
+    <rect x="204" y="320" width="80" height="36" rx="18" fill="#FCEAEA"/><text x="244" y="344" fill="#8B1A1A">Fail</text>
+    <rect x="298" y="320" width="120" height="36" rx="18" fill="#E8E0F0"/><text x="358" y="344" fill="#5B1A8B">Blocked</text>
+    <rect x="432" y="320" width="80" height="36" rx="18" fill="#FDF3DC"/><text x="472" y="344" fill="#7A5000">TBC</text>
+    <rect x="526" y="320" width="150" height="36" rx="18" fill="#EFEFED"/><text x="601" y="344" fill="#5A5A56">Not Tested</text>
+  </g>
+
+  <rect x="1000" y="60" width="500" height="280" rx="16" fill="#FFFFFF" stroke="#000" stroke-opacity="0.08" stroke-width="2"/>
+  <text x="1040" y="112" font-size="22" class="t">Login</text>
+  <line x1="1040" y1="132" x2="1460" y2="132" stroke="#000" stroke-opacity="0.08" stroke-width="2"/>
+  <g font-size="20">
+    <text x="1040" y="182" fill="#7A7872">LGN-001</text><text x="1140" y="182" fill="#1A1A1A">Valid sign in</text>
+    <text x="1040" y="240" fill="#7A7872">LGN-002</text><text x="1140" y="240" fill="#1A1A1A">Wrong password</text>
+    <text x="1040" y="298" fill="#7A7872">LGN-004</text><text x="1140" y="298" fill="#1A1A1A">Reset email</text>
+  </g>
+  <g class="m" font-size="17" text-anchor="middle">
+    <rect x="1370" y="160" width="90" height="34" rx="17" fill="#E8F0E0"/><text x="1415" y="183" fill="#3B6011">Pass</text>
+    <rect x="1370" y="218" width="90" height="34" rx="17" fill="#FCEAEA"/><text x="1415" y="241" fill="#8B1A1A">Fail</text>
+    <rect x="1370" y="276" width="90" height="34" rx="17" fill="#E8E0F0"/><text x="1415" y="299" fill="#5B1A8B">Blocked</text>
+  </g>
+</svg>
