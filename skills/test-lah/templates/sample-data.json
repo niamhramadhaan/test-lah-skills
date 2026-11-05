@@ -18,12 +18,27 @@
       ],
       "results": {
         "LGN-001": { "status": "Pass", "actual": "Redirected to /dashboard with toast." },
-        "LGN-002": { "status": "Fail", "actual": "Page reloads with no message. User cannot tell why sign-in failed. The request returned 401.", "urgent": false, "snippet": "POST /auth/login -> 401 {\"message\":\"Invalid\"}" },
+        "LGN-002": { "status": "Fail", "actual": "Page reloads with no message. User cannot tell why sign-in failed. The request returned 401.", "urgent": false, "snippet": "POST /auth/login\n{\"email\": \"***\", \"password\": \"***\"}\n-> 401 Unauthorized\n{\"message\": \"Invalid\"}" },
         "LGN-003": { "status": "Not Tested", "actual": "Observed: dashboard stays visible after Back; expected result waits for a decision." },
         "LGN-004": { "status": "Blocked", "actual": "Needs a real inbox.", "need": "Provide a mailbox the QA can read." }
       },
       "issues": [
         { "type": "Bug", "severity": "High", "area": "Auth", "issue": ["Wrong password shows no message. The user cannot tell what failed."], "fix": ["Show an inline error under the form. Keep the entered email."], "steps": "Open /login, enter a wrong password, click Sign in.", "ref": "LGN-002" }
+      ]
+    },
+    {
+      "prefix": "DSG",
+      "name": "Design Fidelity",
+      "cases": [
+        { "feature": "Login", "scenario": "Login: layout and copy", "type": "Design", "priority": "High", "precondition": "Figma frame Login / Desktop 1440. Tolerance: hex exact, font exact, spacing within 2 px.", "steps": "1. Open /login at 1440 px\n2. Compare with the frame", "testData": "", "expected": "Logo, heading **Welcome back**, email, password, **Sign in** button, Forgot password link, in that order." },
+        { "feature": "Login", "scenario": "Login: typography and color", "type": "Design", "priority": "Medium", "precondition": "Figma frame Login / Desktop 1440", "steps": "1. Read computed styles of heading, body and button", "testData": "h1, .btn-primary", "expected": "Heading **Inter 600 24px #2B2F33**; button **#1565C0**, radius **8px**." }
+      ],
+      "results": {
+        "DSG-001": { "status": "Pass", "actual": "Matches design." },
+        "DSG-002": { "status": "Fail", "actual": "Heading 20px (design 24px). Button radius 4px (design 8px).", "notes": "Source: Figma Login / Desktop 1440", "snippet": "h1 font-size: 20px (design 24px)\n.btn-primary border-radius: 4px (design 8px)" }
+      },
+      "issues": [
+        { "type": "Bug", "severity": "Medium", "area": "Design", "issue": ["Login heading and button differ from the design. Heading is 20px instead of 24px; button radius is 4px instead of 8px."], "fix": ["Use the design type scale for h1 and the 8px radius token on the primary button."], "steps": "Open /login at 1440 px and inspect the heading and Sign in button.", "ref": "DSG-002" }
       ]
     }
   ],

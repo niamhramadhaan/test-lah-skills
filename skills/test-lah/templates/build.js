@@ -85,6 +85,8 @@ MODS.forEach(m => {
     cnt[status]++; if (status === 'Fail') failed.push(id);
     if (status === 'Blocked' && r.need) needs.push({ id, module: m.name, scenario: c.scenario, need: r.need });
     const shot = r.shot && fs.existsSync(path.resolve(dir, r.shot)) ? path.resolve(dir, r.shot) : null;
+    if (r.shot && !shot) console.warn('WARNING: screenshot file not found:', id, r.shot);
+    if ((status === 'Fail' || r.urgent) && !shot && !r.snippet) console.warn('WARNING: Fail or urgent case without evidence (shot or snippet):', id);
     let dim = null; if (shot) { const [w, h] = pngSize(shot); dim = [SHOT_W, Math.round(SHOT_W * h / w)]; }
     const actual = r.actual ? (r.urgent ? redLead(bulletize(r.actual)) : bulletize(r.actual)) : '';
     const vals = [id, m.name, c.feature, c.scenario, c.type, c.priority, c.precondition, c.steps, c.testData, boldMarks(c.expected), actual, status, bulletize(r.notes), r.snippet || ''];
