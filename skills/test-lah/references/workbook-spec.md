@@ -6,6 +6,7 @@ Apply the color and language chosen at intake. Default if unspecified: neutral p
 
 - Summary first: counts per status, stacked bar per module, issue heatmap per module, cross-module pattern matrix (a pattern seen in 3 or more modules is listed once, with the shared component).
 - One sheet per module, then a General sheet for rules that hold across pages (responsiveness, toasts, loading/empty/error states, forms, confirmations, export, a11y). Test one representative page per pattern; record shared-component findings once.
+- Design Fidelity sheet (only if a design source was given at intake): a normal module with prefix `DSG`, see `references/design-fidelity.md`. Evidence is a design-vs-live side-by-side PNG.
 - Manual Tests sheet: every Blocked case, with a "What you need / why it is manual" column. Needs from the team are bold green.
 - Legend.
 - Sheet names cannot contain a colon.
@@ -28,7 +29,19 @@ Body 12 pt, headers 14 pt, code-like text (requests, paths, field names, JSON) i
 ## Evidence
 
 - Fail with a UI view: screenshot, taken during the run. Blur sensitive fields. Skip screenshots that do not show the failure.
-- API-only Fail: small monospace request/response snippet, no secrets.
+- API-only Fail: small monospace request/response snippet, no secrets. Format, at most about 10 lines:
+  ```
+  POST /api/orders
+  {"qty": -1, "productId": "qa-p1"}
+  -> 201 Created
+  {"id": "ord_123", "qty": -1}
+  ```
+  - Line 1: method and path, query string included if it matters. Line 2: only the payload fields that matter, on one line.
+  - Then `-> ` status code and text, then the trimmed response body that proves the bug. Cut the rest with `...`.
+  - Mask secrets and personal data: tokens, cookies, passwords, emails, phone numbers become `"***"`. Never paste auth headers.
+  - Same snippet format for design checks: selector, measured value, design value.
+- Urgent cases get evidence too, whatever their status. Pass cases need none.
+- The builder warns for any Fail or urgent case with neither `shot` nor `snippet`, and for a `shot` file that does not exist. Fix every warning before handing over.
 
 ## UX Notes (only if chosen at intake)
 
@@ -49,7 +62,7 @@ See `templates/sample-data.json`. Summary:
 - `modules[]`: `prefix`, `name`, `cases[]` (`feature, scenario, type, priority, precondition, steps, testData, expected`; `**x**` in expected is bold), `results` keyed by ID `PREFIX-001` by array order (`status, actual, notes, urgent, shot` as a PNG path relative to the data file, `snippet`, `need` for Blocked cases), `issues[]` (`type, severity, area, issue, fix` as string or array of points, `steps, ref, urgent`). Merging issues = putting several points in one issue's arrays.
 - `patterns[]`: `pattern, modules, component`.
 - Language and wording come from the data you write, not from the builder.
-- The builder warns for a Fail with no issue row, turns a Not Tested result whose actual starts with "Observed" into TBC, and falls back to `*.next.xlsx` when the file is open in Excel.
+- The builder warns for a Fail with no issue row or no evidence, turns a Not Tested result whose actual starts with "Observed" into TBC, and falls back to `*.next.xlsx` when the file is open in Excel.
 - Not built in: stacked-bar chart image, per-theme sheet colors. Add them only if the user asks.
 
 ## Export/Download suggestion pattern (when relevant)

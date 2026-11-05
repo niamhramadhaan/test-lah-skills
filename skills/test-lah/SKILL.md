@@ -33,6 +33,8 @@ Round 2 (output):
 - Model states first? Yes / No. Yes: read `references/state-model.md`.
 - New workbook or continue an existing one.
 
+Round 3 (design, one question): Compare the deployed app with a design? Options: sources discovery found (Figma link, image folder, tokens or brand guideline) / "No design". "Other" takes any design link (Figma, Claude artifact, HTML prototype) or a file path. Any source: read `references/design-fidelity.md`.
+
 Then restate the answers in 4 to 6 lines, wait for "go", and save them to `docs/qa/TEST-LAH.md`.
 
 If nobody can answer (unattended run) and there is no saved profile: stop and report what is missing. Do not guess.
@@ -41,6 +43,8 @@ If nobody can answer (unattended run) and there is no saved profile: stop and re
 
 Per module, write cases as data (one array per module), separate from styling, so a color or language change never means re-running tests. IDs are `PREFIX-001` by array order. Add new cases at the END; never insert in the middle after results exist.
 
+If a design source was given, add a `Design Fidelity` module (prefix `DSG`) per `references/design-fidelity.md`, only for screens the design covers.
+
 Do not guess business intent. A case whose expected result needs a decision gets status TBC, not Pass or Fail.
 
 ## Step 4: Run
@@ -48,12 +52,12 @@ Do not guess business intent. A case whose expected result needs a decision gets
 Read `references/safety.md` before touching any environment, and `references/harness-lessons.md` before writing a runner.
 
 - Verify every Fail: print the full actual text before concluding. Many first Fails are the runner's own mistake. If the assumption was wrong, correct the Expected Result and note the correction in Notes.
-- Capture evidence while the case runs, not afterwards.
+- Capture evidence while the case runs, not afterwards: a screenshot for every Fail or urgent case with a UI view, a request/response snippet for API-only ones. Retaking it later rarely reproduces the same state.
 - Keep per-module progress in the profile file after each module, so a new session can resume.
 
 ## Step 5: Build the workbook
 
-Follow `references/workbook-spec.md` (columns, statuses, formatting, evidence, issues table, summary). Write the results as one JSON file in the data contract from that spec, then run the bundled builder (copy `templates/build.js` next to it, `npm i exceljs@4.4.0`): `node build.js data.json out.xlsx`. Extend the builder only if the spec cannot express what you need. If the file is open in Excel it writes `*.next.xlsx`; ask the user to close Excel and replace the old file.
+Follow `references/workbook-spec.md` (columns, statuses, formatting, evidence, issues table, summary). Write the results as one JSON file in the data contract from that spec, then run the bundled builder (copy `templates/build.js` next to it, `npm i exceljs@4.4.0`): `node build.js data.json out.xlsx`. Resolve every builder warning (missing issue row, missing evidence) before Step 6. Extend the builder only if the spec cannot express what you need. If the file is open in Excel it writes `*.next.xlsx`; ask the user to close Excel and replace the old file.
 
 ## Step 6: Report
 
